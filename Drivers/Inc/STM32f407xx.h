@@ -35,7 +35,6 @@
 
 /*
  * Base addresses of peripherals which are hanging on AHB1 bus
- * TODO : Complete for all other peripherals
  */
 
 #define GPIOA_BASEADDR						(AHB1PERIPH_BASEADDR + 0x0000)
@@ -48,9 +47,9 @@
 #define GPIOH_BASEADDR						(AHB1PERIPH_BASEADDR + 0x1C00)
 #define GPIOI_BASEADDR						(AHB1PERIPH_BASEADDR + 0x2000)
 #define RCC_BASEADDR						(AHB1PERIPH_BASEADDR + 0x3800)
+
 /*
  * Base addresses of peripherals which are hanging on APB1 bus
- * TODO : Complete for all other peripherals
  */
 #define I2C1_BASEADDR						(APB1PERIPH_BASEADDR + 0x5400)
 #define I2C2_BASEADDR						(APB1PERIPH_BASEADDR + 0x5800)
@@ -66,7 +65,6 @@
 
 /*
  * Base addresses of peripherals which are hanging on APB2 bus
- * TODO : Complete for all other peripherals
  */
 #define EXTI_BASEADDR						(APB2PERIPH_BASEADDR + 0x3C00)
 #define SPI1_BASEADDR						(APB2PERIPH_BASEADDR + 0x3000)
@@ -77,10 +75,7 @@
 /**********************************peripheral register definition structures **********************************/
 
 /*
- * Note : Registers of a peripheral are specific to MCU
- * e.g : Number of Registers of SPI peripheral of STM32F4x family of MCUs may be different(more or less)
- * Compared to number of registers of SPI peripheral of STM32Lx or STM32F0x family of MCUs
- * Please check your Device RM
+ * peripheral register definition structure for GPIOs
  */
 
 typedef struct
@@ -278,7 +273,7 @@ typedef struct
 
 
 /*
- * Clock Enable Macros for SPIx peripheralsbu
+ * Clock Enable Macros for SPIx peripherals
  */
 #define SPI1_PCLK_EN() (RCC->APB2ENR |= (1 << 12))
 #define SPI2_PCLK_EN() (RCC->APB1ENR |= (1 << 14))

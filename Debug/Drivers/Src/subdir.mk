@@ -5,29 +5,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/main.c \
-../Src/syscalls.c \
-../Src/sysmem.c 
+../Drivers/Src/STM32f407xx_GPIO.c 
 
 OBJS += \
-./Src/main.o \
-./Src/syscalls.o \
-./Src/sysmem.o 
+./Drivers/Src/STM32f407xx_GPIO.o 
 
 C_DEPS += \
-./Src/main.d \
-./Src/syscalls.d \
-./Src/sysmem.d 
+./Drivers/Src/STM32f407xx_GPIO.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Src/%.o: ../Src/%.c Src/subdir.mk
+Drivers/Src/%.o: ../Drivers/Src/%.c Drivers/Src/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -c -I../Inc -I"F:/OneDrive/Documents/Cube_IDE_workspace/STM32f407xx_drivers/Drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
-clean: clean-Src
+clean: clean-Drivers-2f-Src
 
-clean-Src:
-	-$(RM) ./Src/main.d ./Src/main.o ./Src/syscalls.d ./Src/syscalls.o ./Src/sysmem.d ./Src/sysmem.o
+clean-Drivers-2f-Src:
+	-$(RM) ./Drivers/Src/STM32f407xx_GPIO.d ./Drivers/Src/STM32f407xx_GPIO.o
 
-.PHONY: clean-Src
+.PHONY: clean-Drivers-2f-Src
 
