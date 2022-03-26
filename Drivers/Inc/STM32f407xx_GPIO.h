@@ -16,12 +16,12 @@
  */
 typedef struct
 {
-	uint8_t GPIO_PinNumber;
-	uint8_t GPIO_PinMode;			/*!< possible values from @GPIO_PIN_MODES >*/
-	uint8_t GPIO_PinSpeed;			/*!< possible values from @GPIO_PIN_SPEED >*/
-	uint8_t GPIO_PinPuPdControl;
-	uint8_t GPIO_PinOPType;
-	uint8_t GPIO_PinAltFunMode;
+	uint8_t GPIO_PinNumber;			/* GPIO pin number, values from @GPIO_PIN_NUMBERS */
+	uint8_t GPIO_PinMode;			/* GPIO pin mode, values from @GPIO_PIN_MODES */
+	uint8_t GPIO_PinSpeed;			/* GPIO pin speed, values from @GPIO_PIN_SPEED */
+	uint8_t GPIO_PinPuPdControl;	/* GPIO pull up or down, values from @GPIO_PU_PD_CONFIG */
+	uint8_t GPIO_PinOPType;			/* GPIO pin output type, values from @GPIO_OUTPUT_TYPES */
+	uint8_t GPIO_PinAltFunMode;		/* GPIO pin alternative function mode, values from @ */
 }GPIO_PinConfig_t;
 
 /*
@@ -30,8 +30,8 @@ typedef struct
 
 typedef struct
 {
-	GPIO_RegDef_t *pGPIOx;       		/*!< This holds the base address of the GPIO port to which the pin belongs >*/
-	GPIO_PinConfig_t GPIO_PinConfig;   /*!< This holds GPIO pin configuration settings >*/
+	GPIO_RegDef_t *pGPIOx;       		/* This holds the base address of the GPIO port to which the pin belongs */
+	GPIO_PinConfig_t GPIO_PinConfig;   	/* This holds GPIO pin configuration settings */
 
 }GPIO_Handle_t;
 
@@ -69,8 +69,8 @@ typedef struct
 #define GPIO_MODE_IT_RT     5
 #define GPIO_MODE_IT_RFT    6
 
-
 /*
+ * @GPIO_OUTPUT_TYPES
  * GPIO pin possible output types
  */
 #define GPIO_OP_TYPE_PP   0
@@ -88,6 +88,7 @@ typedef struct
 
 
 /*
+ * @GPIO_PU_PD_CONFIG
  * GPIO pin pull up AND pull down configuration macros
  */
 #define GPIO_NO_PUPD   		0
