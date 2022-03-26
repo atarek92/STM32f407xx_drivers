@@ -12,6 +12,8 @@
 
 #define __vo volatile
 
+#define NO_BITS_IN_BYTE			8
+
 /*
  * base addresses of Flash and SRAM memories
  */
@@ -21,7 +23,6 @@
 #define SRAM2_BASEADDR						(0x2001C000U)
 #define ROM_BASEADDR						(0x1FFF0000U)
 #define SRAM 								(SRAM1_BASEADDR)
-
 
 /*
  * AHBx and APBx Bus Peripheral base addresses
@@ -91,8 +92,6 @@ typedef struct
 	__vo uint32_t AFR[2];						/*!< AFR[0] : GPIO alternate function low register, AF[1] : GPIO alternate function high register    		Address offset: 0x20-0x24 */
 }GPIO_RegDef_t;
 
-
-
 /*
  * peripheral register definition structure for RCC
  */
@@ -136,84 +135,7 @@ typedef struct
 } RCC_RegDef_t;
 
 
-//
-///*
-// * peripheral register definition structure for EXTI
-// */
-//typedef struct
-//{
-//	__vo uint32_t IMR;    /*!< Give a short description,          	  	    Address offset: 0x00 */
-//	__vo uint32_t EMR;    /*!< TODO,                						Address offset: 0x04 */
-//	__vo uint32_t RTSR;   /*!< TODO,  									     Address offset: 0x08 */
-//	__vo uint32_t FTSR;   /*!< TODO, 										Address offset: 0x0C */
-//	__vo uint32_t SWIER;  /*!< TODO,  									   Address offset: 0x10 */
-//	__vo uint32_t PR;     /*!< TODO,                   					   Address offset: 0x14 */
-//
-//}EXTI_RegDef_t;
-//
-//
-///*
-// * peripheral register definition structure for SPI
-// */
-//typedef struct
-//{
-//	__vo uint32_t CR1;        /*!< TODO,     										Address offset: 0x00 */
-//	__vo uint32_t CR2;        /*!< TODO,     										Address offset: 0x04 */
-//	__vo uint32_t SR;         /*!< TODO,     										Address offset: 0x08 */
-//	__vo uint32_t DR;         /*!< TODO,     										Address offset: 0x0C */
-//	__vo uint32_t CRCPR;      /*!< TODO,     										Address offset: 0x10 */
-//	__vo uint32_t RXCRCR;     /*!< TODO,     										Address offset: 0x14 */
-//	__vo uint32_t TXCRCR;     /*!< TODO,     										Address offset: 0x18 */
-//	__vo uint32_t I2SCFGR;    /*!< TODO,     										Address offset: 0x1C */
-//	__vo uint32_t I2SPR;      /*!< TODO,     										Address offset: 0x20 */
-//} SPI_RegDef_t;
-//
-//
-///*
-// * peripheral register definition structure for SYSCFG
-// */
-//typedef struct
-//{
-//	__vo uint32_t MEMRMP;       /*!< Give a short description,                    Address offset: 0x00      */
-//	__vo uint32_t PMC;          /*!< TODO,     									  Address offset: 0x04      */
-//	__vo uint32_t EXTICR[4];    /*!< TODO , 									  Address offset: 0x08-0x14 */
-//	uint32_t      RESERVED1[2];  /*!< TODO          							  Reserved, 0x18-0x1C    	*/
-//	__vo uint32_t CMPCR;        /*!< TODO         								  Address offset: 0x20      */
-//	uint32_t      RESERVED2[2];  /*!<                                             Reserved, 0x24-0x28 	    */
-//	__vo uint32_t CFGR;         /*!< TODO                                         Address offset: 0x2C   	*/
-//} SYSCFG_RegDef_t;
-//
-//
-///*
-// * peripheral register definition structure for I2C
-// */
-//typedef struct
-//{
-//  __vo uint32_t CR1;        /*!< TODO,     										Address offset: 0x00 */
-//  __vo uint32_t CR2;        /*!< TODO,     										Address offset: 0x04 */
-//  __vo uint32_t OAR1;       /*!< TODO,     										Address offset: 0x08 */
-//  __vo uint32_t OAR2;       /*!< TODO,     										Address offset: 0x0C */
-//  __vo uint32_t DR;         /*!< TODO,     										Address offset: 0x10 */
-//  __vo uint32_t SR1;        /*!< TODO,     										Address offset: 0x14 */
-//  __vo uint32_t SR2;        /*!< TODO,     										Address offset: 0x18 */
-//  __vo uint32_t CCR;        /*!< TODO,     										Address offset: 0x1C */
-//  __vo uint32_t TRISE;      /*!< TODO,     										Address offset: 0x20 */
-//  __vo uint32_t FLTR;       /*!< TODO,     										Address offset: 0x24 */
-//}I2C_RegDef_t;
-//
-///*
-// * peripheral register definition structure for USART
-// */
-//typedef struct
-//{
-//	__vo uint32_t SR;         /*!< TODO,     										Address offset: 0x00 */
-//	__vo uint32_t DR;         /*!< TODO,     										Address offset: 0x04 */
-//	__vo uint32_t BRR;        /*!< TODO,     										Address offset: 0x08 */
-//	__vo uint32_t CR1;        /*!< TODO,     										Address offset: 0x0C */
-//	__vo uint32_t CR2;        /*!< TODO,     										Address offset: 0x10 */
-//	__vo uint32_t CR3;        /*!< TODO,     										Address offset: 0x14 */
-//	__vo uint32_t GTPR;       /*!< TODO,     										Address offset: 0x18 */
-//} USART_RegDef_t;
+
 
 /*
  * peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t)
@@ -315,6 +237,32 @@ typedef struct
  * Clock Disable Macros for SYSCFG peripheral
  */
 
+/*
+ *  Macros to reset GPIOx peripherals
+ */
+#define GPIOA_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 0)); (RCC->AHB1RSTR &= ~(1 << 0)); }while(0)
+#define GPIOB_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 1)); (RCC->AHB1RSTR &= ~(1 << 1)); }while(0)
+#define GPIOC_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 2)); (RCC->AHB1RSTR &= ~(1 << 2)); }while(0)
+#define GPIOD_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 3)); (RCC->AHB1RSTR &= ~(1 << 3)); }while(0)
+#define GPIOE_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 4)); (RCC->AHB1RSTR &= ~(1 << 4)); }while(0)
+#define GPIOF_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 5)); (RCC->AHB1RSTR &= ~(1 << 5)); }while(0)
+#define GPIOG_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 6)); (RCC->AHB1RSTR &= ~(1 << 6)); }while(0)
+#define GPIOH_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 7)); (RCC->AHB1RSTR &= ~(1 << 7)); }while(0)
+#define GPIOI_REG_RESET()               do{ (RCC->AHB1RSTR |= (1 << 8)); (RCC->AHB1RSTR &= ~(1 << 8)); }while(0)
+
+
+
+
+//some generic macros
+
+#define ENABLE 				1
+#define DISABLE 			0
+#define SET 				ENABLE
+#define RESET 				DISABLE
+#define GPIO_PIN_SET        SET
+#define GPIO_PIN_RESET      RESET
+#define FLAG_RESET         RESET
+#define FLAG_SET 			SET
 
 
 #endif /* STM32F407XX_H_ */
