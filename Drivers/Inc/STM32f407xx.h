@@ -135,7 +135,44 @@ typedef struct
 } RCC_RegDef_t;
 
 
+/*
+ * peripheral register definition structure for EXTI
+ */
 
+
+
+/*
+ * peripheral register definition structure for SPI
+ */
+
+typedef struct
+{
+	__vo uint32_t  SPI_CR1;		/* SPI control register 1							Address offset: 0x00 */
+	__vo uint32_t  SPI_CR2;		/* SPI control register 2							Address offset: 0x04 */
+	__vo uint32_t  SPI_SR;		/* SPI status register								Address offset: 0x08 */
+	__vo uint32_t  SPI_DR;		/* SPI data register								Address offset: 0x0C */
+	__vo uint32_t  SPI_CRCPR;	/* SPI CRC polynomial register						Address offset: 0x10 */
+	__vo uint32_t  SPI_RXCRCR;	/* SPI RX CRC register								Address offset: 0x14 */
+	__vo uint32_t  SPI_TXCRCR;	/* SPI TX CRC register								Address offset: 0x18 */
+	__vo uint32_t  SPI_I2SCFGR;	/* SPI_I2S configuration register					Address offset: 0x1C */
+	__vo uint32_t  SPI_I2SPR;	/* SPI_I2S prescaler register						Address offset: 0x20 */
+
+} SPI_RegDef_t;
+
+/*
+ * peripheral register definition structure for SYSCFG
+ */
+
+
+
+/*
+ * peripheral register definition structure for I2C
+ */
+
+
+/*
+ * peripheral register definition structure for USART
+ */
 
 /*
  * peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t)
@@ -261,8 +298,117 @@ typedef struct
 #define RESET 				DISABLE
 #define GPIO_PIN_SET        SET
 #define GPIO_PIN_RESET      RESET
-#define FLAG_RESET         RESET
+#define FLAG_RESET			RESET
 #define FLAG_SET 			SET
+
+
+
+/******************************************************************************************
+ *Bit position definitions of SPI peripheral
+ ******************************************************************************************/
+/*
+ * Bit position definitions SPI_CR1
+ */
+#define SPI_CR1_CPHA     				 0				/* Clock phase */
+#define SPI_CR1_CPOL      				 1				/* Clock polarity */
+#define SPI_CR1_MSTR     				 2				/* Master selection */
+#define SPI_CR1_BR   					 3				/* Baud rate control */
+#define SPI_CR1_SPE     				 6				/* SPI enable */
+#define SPI_CR1_LSBFIRST   			 	 7				/* Frame format */
+#define SPI_CR1_SSI     				 8				/* Internal slave select */
+#define SPI_CR1_SSM      				 9				/* Software slave management */
+#define SPI_CR1_RXONLY      		 	10				/* Receive only */
+#define SPI_CR1_DFF     			 	11				/* Data frame format */
+#define SPI_CR1_CRCNEXT   			 	12				/* CRC transfer next */
+#define SPI_CR1_CRCEN   			 	13				/* Hardware CRC calculation enable */
+#define SPI_CR1_BIDIOE     			 	14				/* Output enable in bidirectional mode */
+#define SPI_CR1_BIDIMODE      			15				/* Bidirectional data mode enable */
+
+/*
+ * Bit position definitions SPI_CR2
+ */
+#define SPI_CR2_RXDMAEN		 			0				/* Rx buffer DMA enable */
+#define SPI_CR2_TXDMAEN				 	1				/* Tx buffer DMA enable */
+#define SPI_CR2_SSOE				 	2				/* SS output enable */
+#define SPI_CR2_FRF						4				/* Frame format */
+#define SPI_CR2_ERRIE					5				/* Error interrupt enable */
+#define SPI_CR2_RXNEIE				 	6				/* RX buffer not empty interrupt enable */
+#define SPI_CR2_TXEIE					7				/* Tx buffer empty interrupt enable
+ */
+
+
+/*
+ * Bit position definitions SPI_SR
+ */
+#define SPI_SR_RXNE						0				/* Receive buffer not empty */
+#define SPI_SR_TXE				 		1				/* Transmit buffer empty */
+#define SPI_SR_CHSIDE				 	2				/* Channel side */
+#define SPI_SR_UDR					 	3				/* Underrun flag */
+#define SPI_SR_CRCERR				 	4				/* CRC error flag */
+#define SPI_SR_MODF					 	5				/* Mode fault */
+#define SPI_SR_OVR					 	6				/* Overrun flag */
+#define SPI_SR_BSY					 	7				/* Busy flag */
+#define SPI_SR_FRE					 	8				/* Frame format error */
+
+/******************************************************************************************
+ *Bit position definitions of I2C peripheral
+ ******************************************************************************************/
+/*
+ * Bit position definitions I2C_CR1
+ */
+
+
+/*
+ * Bit position definitions I2C_CR2
+ */
+
+
+/*
+ * Bit position definitions I2C_OAR1
+ */
+
+
+/*
+ * Bit position definitions I2C_SR1
+ */
+
+
+/*
+ * Bit position definitions I2C_SR2
+ */
+
+
+/*
+ * Bit position definitions I2C_CCR
+ */
+
+
+/******************************************************************************************
+ *Bit position definitions of USART peripheral
+ ******************************************************************************************/
+
+/*
+ * Bit position definitions USART_CR1
+ */
+
+
+
+
+/*
+ * Bit position definitions USART_CR2
+ */
+
+
+
+/*
+ * Bit position definitions USART_CR3
+ */
+
+
+/*
+ * Bit position definitions USART_SR
+ */
+
 
 
 #endif /* STM32F407XX_H_ */
