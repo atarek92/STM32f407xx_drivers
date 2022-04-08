@@ -103,6 +103,8 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)
 	//6. configure the CPHA
 	SPI_CR1_temp |= pSPIHandle->SPI_Config.SPI_CPHA << SPI_CR1_CPHA;
 
+	//7. configure the SSM
+	SPI_CR1_temp |= pSPIHandle->SPI_Config.SPI_SSM << SPI_CR1_SSM;
 
 	pSPIHandle->pSPIx->SPI_CR1 = SPI_CR1_temp;
 }
@@ -127,7 +129,7 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx)
 }
 
 /*********************************************************************
- * @fn      		  - SPI_DeInit
+ * @fn      		  - SPI_SendData
  *
  * @brief             -
  *
@@ -158,5 +160,58 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len)
 					// Not Implemented
 			}
 		}
+	}
+}
+
+
+/*********************************************************************
+ * @fn      		  - SPI_PeripheralControl
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -
+
+ */
+void SPI_PeripheralControl (SPI_RegDef_t *pSPIx, uint8_t enable)
+{
+	if(enable == ENABLE)
+	{
+		pSPIx->SPI_CR1 |= (1 << SPI_CR1_SPE);
+	}
+	else
+	{
+		pSPIx->SPI_CR1 &= ~(1 << SPI_CR1_SPE);
+	}
+}
+
+/*********************************************************************
+ * @fn      		  - SPI_PeripheralControl
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -
+
+ */
+void SPI_SSIConfig (SPI_RegDef_t *pSPIx, uint8_t enable)
+{
+	if(enable == ENABLE)
+	{
+		pSPIx->SPI_CR1 |= (1 << SPI_CR1_SSI);
+	}
+	else
+	{
+		pSPIx->SPI_CR1 &= ~(1 << SPI_CR1_SSI);
 	}
 }

@@ -152,7 +152,8 @@ void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len);
 /*
  * Other Peripheral Control APIs
  */
-
+ void SPI_PeripheralControl (SPI_RegDef_t *pSPIx, uint8_t enable);
+ void SPI_SSIConfig (SPI_RegDef_t *pSPIx, uint8_t enable);
 
 /*
  * Application callback
