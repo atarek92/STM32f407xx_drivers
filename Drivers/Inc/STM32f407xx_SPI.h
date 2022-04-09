@@ -29,7 +29,7 @@ typedef struct
 	uint8_t SPI_DeviceMode;			/* Device Mode */
 	uint8_t SPI_BusConfig;			/* Bus Configuration */
 	uint8_t SPI_SclkSpeed;			/* Clock Speed */
-	uint8_t SPI_Dff;				/* Data frame format */
+	uint8_t SPI_DFF;				/* Data frame format */
 	uint8_t SPI_CPOL;				/* Clock polarity */
 	uint8_t SPI_CPHA;				/* Clock phase */
 	uint8_t SPI_SSM;				/* Software slave management */

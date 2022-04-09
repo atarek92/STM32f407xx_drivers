@@ -95,7 +95,7 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)
 	SPI_CR1_temp |= pSPIHandle->SPI_Config.SPI_SclkSpeed << SPI_CR1_BR;
 
 	//4. Configure the DFF
-	SPI_CR1_temp |= pSPIHandle->SPI_Config.SPI_Dff << SPI_CR1_DFF;
+	SPI_CR1_temp |= pSPIHandle->SPI_Config.SPI_DFF << SPI_CR1_DFF;
 
 	//5. configure the CPOL
 	SPI_CR1_temp |= pSPIHandle->SPI_Config.SPI_CPOL << SPI_CR1_CPOL;
@@ -129,6 +129,29 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx)
 }
 
 /*********************************************************************
+ * @fn      		  - SPI_GetFlagStatus
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -
+
+ */
+uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx , uint32_t FlagName)
+{
+	if(pSPIx->SPI_SR & FlagName)
+	{
+		return FLAG_SET;
+	}
+	return FLAG_RESET;
+}
+
+/*********************************************************************
  * @fn      		  - SPI_SendData
  *
  * @brief             -
@@ -142,23 +165,23 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx)
  * @Note              -
 
  */
+
 void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len)
 {
 	while (Len > 0)
 	{
 		/* 1. Wait until TXE is set */
-		while ((pSPIx->SPI_SR & (1 << SPI_SR_TXE)) != 0)
+		while(SPI_GetFlagStatus(pSPIx,( 1 << SPI_SR_TXE))  == FLAG_RESET );
+
+		if ((pSPIx->SPI_CR1 & (1 << SPI_CR1_DFF)) == SPI_DFF_8BITS)
 		{
-			if ((pSPIx->SPI_CR1 & (1 << SPI_CR1_DFF)) == SPI_DFF_8BITS)
-			{
-				pSPIx->SPI_DR = *pTxBuffer;
-				Len --;
-				pTxBuffer ++;
-			}
-			else
-			{
-					// Not Implemented
-			}
+			pSPIx->SPI_DR = *pTxBuffer;
+			Len --;
+			pTxBuffer ++;
+		}
+		else
+		{
+				// Not Implemented
 		}
 	}
 }
