@@ -72,6 +72,11 @@
 #define SYSCFG_BASEADDR        				(APB2PERIPH_BASEADDR + 0x3800)
 #define USART1_BASEADDR						(APB2PERIPH_BASEADDR + 0x1000)
 #define USART6_BASEADDR						(APB2PERIPH_BASEADDR + 0x1400)
+#define ADC_BASEADDR						(APB2PERIPH_BASEADDR + 0x2000)
+#define ADC1_BASEADDR						(ADC_BASEADDR + 0x0000)
+#define ADC2_BASEADDR						(ADC_BASEADDR + 0x0100)
+#define ADC3_BASEADDR						(ADC_BASEADDR + 0x0200)
+#define ADC_COM_REG_BASEADDR				(ADC_BASEADDR + 0x0300)
 
 /**********************************peripheral register definition structures **********************************/
 
@@ -175,6 +180,43 @@ typedef struct
  */
 
 /*
+ * peripheral register definition structure for ADC
+ */
+
+typedef struct
+{
+	__vo uint32_t  ADC_SR;		/* ADC status register								Address offset: 0x00 */
+	__vo uint32_t  ADC_CR1;		/* ADC control register 1							Address offset: 0x04 */
+	__vo uint32_t  ADC_CR2;		/* ADC control register 2							Address offset: 0x08 */
+	__vo uint32_t  ADC_SMPR1;	/* ADC sample time register 1						Address offset: 0x0C */
+	__vo uint32_t  ADC_SMPR2;	/* ADC sample time register 2						Address offset: 0x10 */
+	__vo uint32_t  ADC_JOFR1;	/* ADC injected channel data offset register 1		Address offset: 0x14 */
+	__vo uint32_t  ADC_JOFR2;	/* ADC injected channel data offset register 2		Address offset: 0x18 */
+	__vo uint32_t  ADC_JOFR3;	/* ADC injected channel data offset register 3		Address offset: 0x1C */
+	__vo uint32_t  ADC_JOFR4;	/* ADC injected channel data offset register 4		Address offset: 0x20 */
+	__vo uint32_t  ADC_HTR;		/* ADC watchdog higher threshold register			Address offset: 0x24 */
+	__vo uint32_t  ADC_LTR;		/* ADC watchdog lower threshold register			Address offset: 0x28 */
+	__vo uint32_t  ADC_SQR1;	/* ADC regular sequence register 1					Address offset: 0x2C */
+	__vo uint32_t  ADC_SQR2;	/* ADC regular sequence register 2					Address offset: 0x30 */
+	__vo uint32_t  ADC_SQR3;	/* ADC regular sequence register 3					Address offset: 0x34 */
+	__vo uint32_t  ADC_JSQR;	/* ADC injected sequence register					Address offset: 0x38 */
+	__vo uint32_t  ADC_JDR1;	/* ADC injected data register 1						Address offset: 0x3C */
+	__vo uint32_t  ADC_JDR2;	/* ADC injected data register 2						Address offset: 0x40 */
+	__vo uint32_t  ADC_JDR3;	/* ADC injected data register 3						Address offset: 0x44 */
+	__vo uint32_t  ADC_JDR4;	/* ADC injected data register 4						Address offset: 0x48 */
+	__vo uint32_t  ADC_DR;		/* ADC regular data register						Address offset: 0x4C */
+} ADC_RegDef_t;
+
+
+typedef struct
+{
+	__vo uint32_t  ADC_CSR;		/* ADC Common status register						Address offset: 0x0 */
+	__vo uint32_t  ADC_CCR;		/* ADC common control register						Address offset: 0x04 */
+	__vo uint32_t  ADC_CDR;		/* ADC common regular data register 				Address offset: 0x08 */
+
+} ADC_Comm_RegDef_t;
+
+/*
  * peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t)
  */
 
@@ -208,6 +250,11 @@ typedef struct
 #define UART5  				((USART_RegDef_t*)UART5_BASEADDR)
 #define USART6  			((USART_RegDef_t*)USART6_BASEADDR)
 
+#define ADC1  				((ADC_RegDef_t*)ADC1_BASEADDR)
+#define ADC2  				((ADC_RegDef_t*)ADC2_BASEADDR)
+#define ADC3  				((ADC_RegDef_t*)ADC3_BASEADDR)
+#define ADC_COMM  			((ADC_Comm_RegDef_t*)ADC_COM_REG_BASEADDR)
+
 /*
  * Clock Enable Macros for GPIOx peripherals
  */
@@ -238,6 +285,14 @@ typedef struct
 #define SPI2_PCLK_EN() (RCC->APB1ENR |= (1 << 14))
 #define SPI3_PCLK_EN() (RCC->APB1ENR |= (1 << 15))
 #define SPI4_PCLK_EN() (RCC->APB2ENR |= (1 << 13))
+
+
+/*
+ * Clock Enable Macros for ADCx peripherals
+ */
+#define ADC1_PCLK_EN() (RCC->APB2ENR |= (1 << 8))
+#define ADC2_PCLK_EN() (RCC->APB2ENR |= (1 << 9))
+#define ADC3_PCLK_EN() (RCC->APB2ENR |= (1 << 10))
 
 
 /*
@@ -409,6 +464,65 @@ typedef struct
  * Bit position definitions USART_SR
  */
 
+/******************************************************************************************
+ *Bit position definitions of ADC peripheral
+ ******************************************************************************************/
+
+/*
+ * Bit position definitions ADC_SR
+ */
+#define ADC_SR_AWD						0				/*  */
+#define ADC_SR_EOC						1				/*  */
+#define ADC_SR_JEOC						2				/*  */
+#define ADC_SR_JSTRT					3				/*  */
+#define ADC_SR_STRT						4				/*  */
+#define ADC_SR_OVR						6				/*  */
+
+/*
+ * Bit position definitions ADC_CR1
+ */
+
+
+
+/*
+ * Bit position definitions ADC_CR2
+ */
+#define ADC_CR2_ADON     				 0				/* A/D Converter ON / OFF */
+#define ADC_CR2_CONT     				 1				/* A/D Converter Mode Single / Continuous */
+#define ADC_CR2_SWSTART     			 30				/* Start conversion of regular channels */
+
+/*
+ * Bit position definitions ADC_SMPR1
+ */
+
+/*
+* Bit position definitions ADC_SQR1
+*/
+#define ADC_SQR_COV_13     				 0				/* 13th conversion in regular sequence */
+#define ADC_SQR_COV_14     				 5				/* 14th conversion in regular sequence */
+#define ADC_SQR_COV_15     				 10				/* 15th conversion in regular sequence */
+#define ADC_SQR_COV_16     				 15				/* 16th conversion in regular sequence */
+#define ADC_SQR_SEQ_LEN    				 20				/* Regular channel sequence length */
+
+/*
+* Bit position definitions ADC_SQR2
+*/
+#define ADC_SQR_COV_7     				 0				/* 7th conversion in regular sequence */
+#define ADC_SQR_COV_8     				 5				/* 8th conversion in regular sequence */
+#define ADC_SQR_COV_9     				 10				/* 9th conversion in regular sequence */
+#define ADC_SQR_COV_10     				 15				/* 10th conversion in regular sequence */
+#define ADC_SQR_COV_11    				 20				/* 11th conversion in regular sequence */
+#define ADC_SQR_COV_12    				 25				/* 12th conversion in regular sequence */
+
+/*
+* Bit position definitions ADC_SQR3
+*/
+#define ADC_SQR_COV_1     				 0				/* 1th conversion in regular sequence */
+#define ADC_SQR_COV_2     				 5				/* 2th conversion in regular sequence */
+#define ADC_SQR_COV_3     				 10				/* 3th conversion in regular sequence */
+#define ADC_SQR_COV_4     				 15				/* 4th conversion in regular sequence */
+#define ADC_SQR_COV_5    				 20				/* 5th conversion in regular sequence */
+#define ADC_SQR_COV_6    				 25				/* 6th conversion in regular sequence */
 
 
 #endif /* STM32F407XX_H_ */
