@@ -19,19 +19,33 @@ void ADC_GPIO_Init()
 	adc_pins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ANALOG;
 	adc_pins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_4;
 	GPIO_Init(&adc_pins);
+
+	adc_pins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_5;
+	GPIO_Init(&adc_pins);
+
+	adc_pins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_6;
+	GPIO_Init(&adc_pins);
 }
 
 void ADC1_Init(ADC_Handle_t *pADCHandle)
 {
 	pADCHandle->pADCx = ADC1;
+	pADCHandle->ADC_Config.ADC_ConverterMode = ADC_MODE_SINGLE;
+
 	pADCHandle->ADC_Config.ADC_Channel = ADC_CHANNEL_4;
 	pADCHandle->ADC_Config.ADC_SeqOrder = ADC_SEQ_ORDER_1;
-	pADCHandle->ADC_Config.ADC_ConverterMode = ADC_MODE_CONT;
-
 	ADC_Init(pADCHandle);
+
+//	pADCHandle->ADC_Config.ADC_Channel = ADC_CHANNEL_5;
+//	pADCHandle->ADC_Config.ADC_SeqOrder = ADC_SEQ_ORDER_2;
+//	ADC_Init(pADCHandle);
 }
 
 uint32_t sensor_data;
+void delay()
+{
+	for (uint32_t i = 0; i < 500000; i++);
+}
 
 int main (void)
 {
@@ -44,6 +58,7 @@ int main (void)
 	while (1)
 	{
 		sensor_data = ADC_ReadData(&ADCHandle);
+		delay();
 	}
 	return 0;
 }

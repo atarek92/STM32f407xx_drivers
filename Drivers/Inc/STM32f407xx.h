@@ -476,13 +476,12 @@ typedef struct
 #define ADC_SR_JEOC						2				/*  */
 #define ADC_SR_JSTRT					3				/*  */
 #define ADC_SR_STRT						4				/*  */
-#define ADC_SR_OVR						6				/*  */
+#define ADC_SR_OVR						5				/*  */
 
 /*
  * Bit position definitions ADC_CR1
  */
-
-
+#define ADC_CR1_SCAN     				 8				/* Scan Mode Enable / Disable */
 
 /*
  * Bit position definitions ADC_CR2
