@@ -20,6 +20,7 @@
 #include "STM32f407xx.h"
 #include "STM32f407xx_GPIO.h"
 #include "STM32f407xx_SPI.h"
+#include <STM32f407xx_TIMER.h>
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -63,13 +64,21 @@ int main(void)
 
 	GPIO_Init(&GPIOBtn);
 
+	TIM_ADVANCED_Handle_t pTIMHandle;
+
+	pTIMHandle.pTIMx=TIM1;
+	pTIMHandle.TIM_Config.TIM_Prescaler = 16000;
+	pTIMHandle.TIM_Config.TIM_AutoRelaod = 10000;
+    TIM_ADVANCED_init(&pTIMHandle);
+
 	while(1)
 	{
-		if(GPIO_ReadFromInputPin(GPIOA,GPIO_PIN_NO_0) == BTN_PRESSED)
-		{
-			//delay();
+//		if(GPIO_ReadFromInputPin(GPIOA,GPIO_PIN_NO_0) == BTN_PRESSED)
+//		{
+//			delay();
+			while (!Check_TIM_ADVANCED_Interrupt_flag(&pTIMHandle));
 			GPIO_ToggleOutputPin(GPIOD,GPIO_PIN_NO_12);
-		}
+//		}
 	}
 	return 0;
 }

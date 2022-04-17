@@ -22,7 +22,6 @@ typedef struct
 
 }ADC_Config_t;
 
-
 /*
  *Handle structure for ADCx peripheral
  */

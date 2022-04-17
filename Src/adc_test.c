@@ -6,6 +6,7 @@
  */
 
 #include <stdint.h>
+#include <STM32f407xx_TIMER.h>
 #include "STM32f407xx.h"
 #include "STM32f407xx_GPIO.h"
 #include "STM32f407xx_ADC.h"
@@ -44,6 +45,8 @@ int main (void)
 	while (1)
 	{
 		sensor_data = ADC_ReadData(&ADCHandle);
+
+		systickDelayMs(60000);
 	}
 	return 0;
 }

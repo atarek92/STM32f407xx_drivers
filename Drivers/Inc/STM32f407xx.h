@@ -25,6 +25,12 @@
 #define SRAM 								(SRAM1_BASEADDR)
 
 /*
+ * base addresses of Cortex M4
+ */
+#define SYSTICK_BASEADDR					(0xE000E010U)
+
+
+/*
  * AHBx and APBx Bus Peripheral base addresses
  */
 
@@ -64,6 +70,16 @@
 #define UART4_BASEADDR						(APB1PERIPH_BASEADDR + 0x4C00)
 #define UART5_BASEADDR						(APB1PERIPH_BASEADDR + 0x5000)
 
+#define TIM2_BASEADDR						(APB1PERIPH_BASEADDR + 0x0000)
+#define TIM3_BASEADDR						(APB1PERIPH_BASEADDR + 0x0400)
+#define TIM4_BASEADDR						(APB1PERIPH_BASEADDR + 0x0800)
+#define TIM5_BASEADDR						(APB1PERIPH_BASEADDR + 0x0C00)
+#define TIM6_BASEADDR						(APB1PERIPH_BASEADDR + 0x1000)
+#define TIM7_BASEADDR						(APB1PERIPH_BASEADDR + 0x1400)
+#define TIM12_BASEADDR						(APB1PERIPH_BASEADDR + 0x1800)
+#define TIM13_BASEADDR						(APB1PERIPH_BASEADDR + 0x1C00)
+#define TIM14_BASEADDR						(APB1PERIPH_BASEADDR + 0x2000)
+
 /*
  * Base addresses of peripherals which are hanging on APB2 bus
  */
@@ -77,6 +93,12 @@
 #define ADC2_BASEADDR						(ADC_BASEADDR + 0x0100)
 #define ADC3_BASEADDR						(ADC_BASEADDR + 0x0200)
 #define ADC_COM_REG_BASEADDR				(ADC_BASEADDR + 0x0300)
+
+#define TIM1_BASEADDR						(APB2PERIPH_BASEADDR + 0x0000)
+#define TIM8_BASEADDR						(APB2PERIPH_BASEADDR + 0x0400)
+#define TIM9_BASEADDR						(APB2PERIPH_BASEADDR + 0x4000)
+#define TIM10_BASEADDR						(APB2PERIPH_BASEADDR + 0x4400)
+#define TIM11_BASEADDR						(APB2PERIPH_BASEADDR + 0x4800)
 
 /**********************************peripheral register definition structures **********************************/
 
@@ -139,6 +161,17 @@ typedef struct
 
 } RCC_RegDef_t;
 
+/*
+ * peripheral register definition structure for SYSTICK
+ */
+typedef struct
+{
+	__vo uint32_t STK_CTRL;						/*!< SysTick control and status register,          	Address offset: 0x00      */
+	__vo uint32_t STK_LOAD;						/*!< SysTick reload value register,     			Address offset: 0x04      */
+	__vo uint32_t STK_VAL;						/*!< SysTick current value register,     			Address offset: 0x08      */
+	__vo uint32_t STK_CALIB;					/*!< SysTick calibration value register,   			Address offset: 0x0C      */
+
+}SYSTICK_RegDef_t;
 
 /*
  * peripheral register definition structure for EXTI
@@ -217,6 +250,113 @@ typedef struct
 } ADC_Comm_RegDef_t;
 
 /*
+ * peripheral register definition structure for TIMER
+ */
+typedef struct
+{
+	__vo uint32_t  TIMx_CR1;		/* Control register 1							Address offset: 0x0 */
+	__vo uint32_t  TIMx_CR2;		/* Control register 2							Address offset: 0x04 */
+	uint32_t       RESERVED0;       /* Reserved										Address offset: 0x08 */
+	__vo uint32_t  TIMx_DIER;		/* DMA/Interrupt enable register 				Address offset: 0x0C */
+	__vo uint32_t  TIMx_SR;			/* Status register 								Address offset: 0x10 */
+	__vo uint32_t  TIMx_EGR;		/* Event generation register 					Address offset: 0x14 */
+	uint32_t       RESERVED1;       /* Reserved										Address offset: 0x18 */
+	uint32_t       RESERVED2;       /* Reserved										Address offset: 0x1C */
+	uint32_t       RESERVED3;       /* Reserved										Address offset: 0x20 */
+	__vo uint32_t  TIMx_CNT;		/* Counter 										Address offset: 0x24 */
+	__vo uint32_t  TIMx_PSC;		/* Prescaler 									Address offset: 0x28 */
+	__vo uint32_t  TIMx_ARR;		/* Auto-reload register 						Address offset: 0x2C */
+} TIM_BASIC_RegDef_t;
+
+typedef struct
+{
+	__vo uint32_t  TIMx_CR1;		/* Control register 1							Address offset: 0x0 */
+	__vo uint32_t  TIMx_CR2;		/* Control register 2							Address offset: 0x04 */
+	__vo uint32_t  TIMx_SMCR;		/* Slave mode control register					Address offset: 0x08 */
+	__vo uint32_t  TIMx_DIER;		/* DMA/iInterrupt enable register 				Address offset: 0x0C */
+	__vo uint32_t  TIMx_SR;			/* Status register 								Address offset: 0x10 */
+	__vo uint32_t  TIMx_EGR;		/* Event generation register 					Address offset: 0x14 */
+	__vo uint32_t  TIMx_CCMR1;      /* Capture/compare mode register 1				Address offset: 0x18 */
+	__vo uint32_t  TIMx_CCMR2;      /* Capture/compare mode register 2				Address offset: 0x1C */
+	__vo uint32_t  TIMx_CCER;       /* Capture/compare enable register				Address offset: 0x20 */
+	__vo uint32_t  TIMx_CNT;		/* Counter 										Address offset: 0x24 */
+	__vo uint32_t  TIMx_PSC;		/* Prescaler 									Address offset: 0x28 */
+	__vo uint32_t  TIMx_ARR;		/* Auto-reload register 						Address offset: 0x2C */
+	uint32_t       RESERVED0;       /* Reserved										Address offset: 0x30 */
+	__vo uint32_t  TIMx_CCR1;		/* Capture/compare register 1 					Address offset: 0x34 */
+	__vo uint32_t  TIMx_CCR2;		/* Capture/compare register 2 					Address offset: 0x38 */
+	__vo uint32_t  TIMx_CCR3;		/* Capture/compare register 3 					Address offset: 0x3C */
+	__vo uint32_t  TIMx_CCR4;		/* Capture/compare register 4 					Address offset: 0x40 */
+	uint32_t       RESERVED1;       /* Reserved										Address offset: 0x44 */
+	__vo uint32_t  TIMx_DCR;		/* DMA control register		 					Address offset: 0x48 */
+	__vo uint32_t  TIMx_DMAR;		/* 8 DMA address for full transfer				Address offset: 0x4C */
+	__vo uint32_t  TIMx_OR;			/* Option register 1 							Address offset: 0x50 */
+} TIM_2_to_5_GENERAL_RegDef_t;
+
+typedef struct
+{
+	__vo uint32_t  TIMx_CR1;		/* Control register 1							Address offset: 0x0 */
+	uint32_t  	   RESERVED0;		/* Reserved										Address offset: 0x04 */
+	__vo uint32_t  TIMx_SMCR;		/* Slave mode control register					Address offset: 0x08 */
+	__vo uint32_t  TIMx_DIER;		/* Interrupt enable register 					Address offset: 0x0C */
+	__vo uint32_t  TIMx_SR;			/* Status register 								Address offset: 0x10 */
+	__vo uint32_t  TIMx_EGR;		/* Event generation register 					Address offset: 0x14 */
+	__vo uint32_t  TIMx_CCMR1;      /* Capture/compare mode register 1				Address offset: 0x18 */
+	uint32_t       RESERVED2;       /* Reserved										Address offset: 0x1C */
+	__vo uint32_t  TIMx_CCER;       /* Capture/compare enable register				Address offset: 0x20 */
+	__vo uint32_t  TIMx_CNT;		/* Counter 										Address offset: 0x24 */
+	__vo uint32_t  TIMx_PSC;		/* Prescaler 									Address offset: 0x28 */
+	__vo uint32_t  TIMx_ARR;		/* Auto-reload register 						Address offset: 0x2C */
+	uint32_t       RESERVED3;       /* Reserved										Address offset: 0x30 */
+	__vo uint32_t  TIMx_CCR1;		/* Capture/compare register 1 					Address offset: 0x34 */
+	__vo uint32_t  TIMx_CCR2;		/* Capture/compare register 2					Address offset: 0x38 */
+} TIM_9_12_GENERAL_RegDef_t;
+
+typedef struct
+{
+	__vo uint32_t  TIMx_CR1;		/* Control register 1							Address offset: 0x0 */
+	uint32_t  	   RESERVED0;		/* Reserved										Address offset: 0x04 */
+	uint32_t  	   RESERVED1;		/* Reserved										Address offset: 0x08 */
+	__vo uint32_t  TIMx_DIER;		/* Interrupt enable register 					Address offset: 0x0C */
+	__vo uint32_t  TIMx_SR;			/* Status register 								Address offset: 0x10 */
+	__vo uint32_t  TIMx_EGR;		/* Event generation register 					Address offset: 0x14 */
+	__vo uint32_t  TIMx_CCMR1;      /* Capture/compare mode register 1				Address offset: 0x18 */
+	uint32_t       RESERVED2;       /* Reserved										Address offset: 0x1C */
+	__vo uint32_t  TIMx_CCER;       /* Capture/compare enable register				Address offset: 0x20 */
+	__vo uint32_t  TIMx_CNT;		/* Counter 										Address offset: 0x24 */
+	__vo uint32_t  TIMx_PSC;		/* Prescaler 									Address offset: 0x28 */
+	__vo uint32_t  TIMx_ARR;		/* Auto-reload register 						Address offset: 0x2C */
+	uint32_t       RESERVED3;       /* Reserved										Address offset: 0x30 */
+	__vo uint32_t  TIMx_CCR1;		/* Capture/compare register 1 					Address offset: 0x34 */
+	uint32_t       RESERVED4[6];    /* Reserved							 	 Address offset: 0x38 - 0x4C */
+	__vo uint32_t  TIMx_OR;			/* Option register 1 							Address offset: 0x50 */
+} TIM_10_11_13_14_GENERAL_RegDef_t;
+
+typedef struct
+{
+	__vo uint32_t  TIMx_CR1;		/* Control register 1							Address offset: 0x0 */
+	__vo uint32_t  TIMx_CR2;		/* Control register 2							Address offset: 0x04 */
+	__vo uint32_t  TIMx_SMCR;		/* Slave mode control register					Address offset: 0x08 */
+	__vo uint32_t  TIMx_DIER;		/* DMA/iInterrupt enable register 				Address offset: 0x0C */
+	__vo uint32_t  TIMx_SR;			/* Status register 								Address offset: 0x10 */
+	__vo uint32_t  TIMx_EGR;		/* Event generation register 					Address offset: 0x14 */
+	__vo uint32_t  TIMx_CCMR1;      /* Capture/compare mode register 1				Address offset: 0x18 */
+	__vo uint32_t  TIMx_CCMR2;      /* Capture/compare mode register 2				Address offset: 0x1C */
+	__vo uint32_t  TIMx_CCER;       /* Capture/compare enable register				Address offset: 0x20 */
+	__vo uint32_t  TIMx_CNT;		/* Counter 										Address offset: 0x24 */
+	__vo uint32_t  TIMx_PSC;		/* Prescaler 									Address offset: 0x28 */
+	__vo uint32_t  TIMx_ARR;		/* Auto-reload register 						Address offset: 0x2C */
+	__vo uint32_t  TIMx_RCR;        /* Repetition counter register					Address offset: 0x30 */
+	__vo uint32_t  TIMx_CCR1;		/* Capture/compare register 1 					Address offset: 0x34 */
+	__vo uint32_t  TIMx_CCR2;		/* Capture/compare register 2 					Address offset: 0x38 */
+	__vo uint32_t  TIMx_CCR3;		/* Capture/compare register 3 					Address offset: 0x3C */
+	__vo uint32_t  TIMx_CCR4;		/* Capture/compare register 4 					Address offset: 0x40 */
+	__vo uint32_t  TIMx_BDTR;		/* Break and dead-time register 				Address offset: 0x44 */
+	__vo uint32_t  TIMx_DCR;		/* DMA control register		 					Address offset: 0x48 */
+	__vo uint32_t  TIMx_DMAR;		/* 8 DMA address for full transfer				Address offset: 0x4C */
+} TIM_ADVANCED_RegDef_t;
+
+/*
  * peripheral definitions ( Peripheral base addresses typecasted to xxx_RegDef_t)
  */
 
@@ -233,7 +373,7 @@ typedef struct
 #define RCC 				((RCC_RegDef_t*)RCC_BASEADDR)
 #define EXTI				((EXTI_RegDef_t*)EXTI_BASEADDR)
 #define SYSCFG				((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
-
+#define SYSTICK				((SYSTICK_RegDef_t*)SYSTICK_BASEADDR)
 
 #define SPI1  				((SPI_RegDef_t*)SPI1_BASEADDR)
 #define SPI2  				((SPI_RegDef_t*)SPI2_BASEADDR)
@@ -255,10 +395,24 @@ typedef struct
 #define ADC3  				((ADC_RegDef_t*)ADC3_BASEADDR)
 #define ADC_COMM  			((ADC_Comm_RegDef_t*)ADC_COM_REG_BASEADDR)
 
+#define TIM1				((TIM_ADVANCED_RegDef_t*)TIM1_BASEADDR)
+#define TIM2				((TIM_2_to_5_GENERAL_RegDef_t*)TIM2_BASEADDR)
+#define TIM3				((TIM_2_to_5_GENERAL_RegDef_t*)TIM3_BASEADDR)
+#define TIM4				((TIM_2_to_5_GENERAL_RegDef_t*)TIM4_BASEADDR)
+#define TIM5				((TIM_2_to_5_GENERAL_RegDef_t*)TIM5_BASEADDR)
+#define TIM6				((TIM_BASIC_RegDef_t*)TIM6_BASEADDR)
+#define TIM7				((TIM_BASIC_RegDef_t*)TIM7_BASEADDR)
+#define TIM8				((TIM_ADVANCED_RegDef_t*)TIM8_BASEADDR)
+#define TIM9				((TIM_9_12_GENERAL_RegDef_t*)TIM9_BASEADDR)
+#define TIM10				((TIM_10_11_13_14_GENERAL_RegDef_t*)TIM10_BASEADDR)
+#define TIM11				((TIM_10_11_13_14_GENERAL_RegDef_t*)TIM11_BASEADDR)
+#define TIM12				((TIM_9_12_GENERAL_RegDef_t*)TIM12_BASEADDR)
+#define TIM13				((TIM_10_11_13_14_GENERAL_RegDef_t*)TIM13_BASEADDR)
+#define TIM14				((TIM_10_11_13_14_GENERAL_RegDef_t*)TIM14_BASEADDR)
+
 /*
  * Clock Enable Macros for GPIOx peripherals
  */
-
 #define GPIOA_PCLK_EN()    	(RCC->AHB1ENR |= (1 << 0))
 #define GPIOB_PCLK_EN()		(RCC->AHB1ENR |= (1 << 1))
 #define GPIOC_PCLK_EN()		(RCC->AHB1ENR |= (1 << 2))
@@ -298,18 +452,35 @@ typedef struct
 /*
  * Clock Enable Macros for USARTx peripherals
  */
-#define USART1_PCCK_EN() (RCC->APB2ENR |= (1 << 4))
-#define USART2_PCCK_EN() (RCC->APB1ENR |= (1 << 17))
-#define USART3_PCCK_EN() (RCC->APB1ENR |= (1 << 18))
-#define UART4_PCCK_EN()  (RCC->APB1ENR |= (1 << 19))
-#define UART5_PCCK_EN()  (RCC->APB1ENR |= (1 << 20))
-#define USART6_PCCK_EN() (RCC->APB1ENR |= (1 << 5))
+#define USART1_PCLK_EN() (RCC->APB2ENR |= (1 << 4))
+#define USART2_PCLK_EN() (RCC->APB1ENR |= (1 << 17))
+#define USART3_PCLK_EN() (RCC->APB1ENR |= (1 << 18))
+#define UART4_PCLK_EN()  (RCC->APB1ENR |= (1 << 19))
+#define UART5_PCLK_EN()  (RCC->APB1ENR |= (1 << 20))
+#define USART6_PCLK_EN() (RCC->APB1ENR |= (1 << 5))
 
 /*
  * Clock Enable Macros for SYSCFG peripheral
  */
 #define SYSCFG_PCLK_EN() (RCC->APB2ENR |= (1 << 14))
 
+/*
+ * Clock Enable Macros for TIMERS peripherals
+ */
+#define TIM1_PCLK_EN() (RCC->APB2ENR |= (1 << 0))
+#define TIM2_PCLK_EN() (RCC->APB1ENR |= (1 << 0))
+#define TIM3_PCLK_EN() (RCC->APB1ENR |= (1 << 1))
+#define TIM4_PCLK_EN() (RCC->APB1ENR |= (1 << 2))
+#define TIM5_PCLK_EN() (RCC->APB1ENR |= (1 << 3))
+#define TIM6_PCLK_EN() (RCC->APB1ENR |= (1 << 4))
+#define TIM7_PCLK_EN() (RCC->APB1ENR |= (1 << 5))
+#define TIM8_PCLK_EN() (RCC->APB2ENR |= (1 << 1))
+#define TIM9_PCLK_EN() (RCC->APB2ENR |= (1 << 16))
+#define TIM10_PCLK_EN() (RCC->APB2ENR |= (1 << 17))
+#define TIM11_PCLK_EN() (RCC->APB2ENR |= (1 << 18))
+#define TIM12_PCLK_EN() (RCC->APB1ENR |= (1 << 6))
+#define TIM13_PCLK_EN() (RCC->APB1ENR |= (1 << 7))
+#define TIM14_PCLK_EN() (RCC->APB1ENR |= (1 << 8))
 
 /*
  * Clock Disable Macros for GPIOx peripherals
@@ -353,10 +524,40 @@ typedef struct
 #define RESET 				DISABLE
 #define GPIO_PIN_SET        SET
 #define GPIO_PIN_RESET      RESET
-#define FLAG_RESET			RESET
 #define FLAG_SET 			SET
+#define FLAG_RESET			RESET
+#define FLAG_UPDATED		SET
+#define FLAG_NOT_UPDATED	RESET
 
 
+
+/******************************************************************************************
+ *Bit position definitions of SYSTICK
+ ******************************************************************************************/
+/*
+ * Bit position definitions STK_CTRL
+ */
+#define SYSTICK_STK_CTRL_ENABLE  		 0				/* Counter enable */
+#define SYSTICK_STK_CTRL_TICKINT  		 1				/* SysTick exception request enable */
+#define SYSTICK_STK_CTRL_CLKSOURCE  	 2				/* Clock source selection */
+#define SYSTICK_STK_CTRL_COUNTFLAG  	 16				/* Counter Flag "Returns 1 if timer counted to 0 since last time this was read" */
+
+/*
+ * Bit position definitions STK_LOAD
+ */
+#define SYSTICK_STK_LOAD_RELOAD  		 0				/* RELOAD value */
+
+/*
+ * Bit position definitions STK_VAL
+ */
+#define SYSTICK_STK_VAL_CURRENT  		 0				/* Current counter value */
+
+/*
+ * Bit position definitions STK_CALIB
+ */
+#define SYSTICK_STK_CALIB_TENMS  		 0				/* Calibration value */
+#define SYSTICK_STK_CALIB_SKEW  		 30				/* SKEW flag */
+#define SYSTICK_STK_CALIB_NOREF  		 31				/* NOREF flag */
 
 /******************************************************************************************
  *Bit position definitions of SPI peripheral
@@ -524,5 +725,18 @@ typedef struct
 #define ADC_SQR_COV_5    				 20				/* 5th conversion in regular sequence */
 #define ADC_SQR_COV_6    				 25				/* 6th conversion in regular sequence */
 
+
+/******************************************************************************************
+ *Bit position definitions of Advanced Timer peripheral
+ ******************************************************************************************/
+/*
+ * Bit position definitions TIM_ADV_CR1
+ */
+#define TIM_ADV_CR1_CEN     				 0				/*  Counter enable */
+
+/*
+ * Bit position definitions TIM_ADV_SR
+ */
+#define TIM_ADV_SR_UIF	     				 0				/*  Counter enable */
 
 #endif /* STM32F407XX_H_ */
